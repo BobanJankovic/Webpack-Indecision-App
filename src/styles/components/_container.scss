@@ -1,0 +1,25 @@
+.container {
+    max-width:70%;
+    margin:0 auto;
+    text-align: center;
+
+}
+.header {
+    text-align: center;
+}
+
+.opcije {
+    width:200px;
+    height: 50%;
+    display: inline-block;
+    background: whitesmoke;
+    margin-right: 10px;
+    border: 2px solid burlywood;
+    margin-bottom: 10px;
+    
+    padding: 2%;
+    span {
+        font-size: 20px;
+        word-break: break-all;
+    }
+}

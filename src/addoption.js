@@ -27,7 +27,7 @@ export class AddOption extends React.Component {
       <div>
         { this.state.error && <p>{this.state.error} -> Ovo je error ne mozes ovo napisati</p>}
         <h2>
-          Zdravo ja sam AddOption
+          AddOption
         </h2>
         <form onSubmit={this.handleAddd}>
           <input type="text" name="option" ></input>

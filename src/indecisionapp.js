@@ -3,11 +3,13 @@ import {Action} from './action';
 import {Header} from './header';
 import {Options} from './options';
 import {AddOption} from './addoption';
+import {OptionModal} from './optionmodal';
 export class IndecisionApp extends React.Component {
   constructor(props){
     super(props);
     this.state={
-      options: ['thing one', 'thing two', 'thing three']
+      options: ['thing one', 'thing two', 'thing three'],
+      modalIsOpen: undefined
     }
     //The parent component binds the newly-defined method to the current instance of the component 
     //in its constructor.This ensures that when we pass the method to the child component, 
@@ -17,6 +19,8 @@ export class IndecisionApp extends React.Component {
     this.handleDeleteOption=this.handleDeleteOption.bind(this);
     this.handlePick=this.handlePick.bind(this);
     this.handleDeleteOneOption=this.handleDeleteOneOption.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   componentDidMount(){
@@ -40,6 +44,14 @@ export class IndecisionApp extends React.Component {
 
   componentWillUnmount(){
     console.log("unmount")
+  };
+
+  openModal() {
+    
+  };
+
+  closeModal() {
+    this.setState({modalIsOpen: false});
   };
 
 
@@ -68,8 +80,9 @@ export class IndecisionApp extends React.Component {
    
   handlePick(){
     let rand=Math.floor(Math.random()*this.state.options.length);
-    console.log(this.state.options[rand])
-    alert(this.state.options[rand]);
+    let pick = this.state.options[rand];
+    this.setState({modalIsOpen: pick});
+    
   };
 
 
@@ -97,25 +110,32 @@ export class IndecisionApp extends React.Component {
       <div>
         
         <Header /*title={title}*/ subtitle={subtitle} />
-        
-        <Action 
-          //Vraca vrednost true ili false
-          handlePickOption={this.state.options.length>0}
-          handleDeleteOption={this.handleDeleteOption}
+        <div className="container">
+          <Action 
+            //Vraca vrednost true ili false
+            handlePickOption={this.state.options.length>0}
+            handleDeleteOption={this.handleDeleteOption}
+            handlePick={this.handlePick}
+            
+          />
+
+          <Options 
+            options={this.state.options}  
+            length={this.state.options.length} 
+            handleDeleteOneOption={this.handleDeleteOneOption}
+          />
+
+          <AddOption 
+            handleAdd={this.handleAdd}
+            stejt={this.state.options}
+          />
+          <OptionModal 
+          openModal={this.openModal}
+          stejt={this.state.modalIsOpen}
+          closeModal={this.closeModal}
           handlePick={this.handlePick}
-          
-        />
-
-        <Options 
-          options={this.state.options}  
-          length={this.state.options.length} 
-          handleDeleteOneOption={this.handleDeleteOneOption}
-        />
-
-        <AddOption 
-          handleAdd={this.handleAdd}
-          stejt={this.state.options}
-        />
+          />
+        </div>
 
       </div>
     );
